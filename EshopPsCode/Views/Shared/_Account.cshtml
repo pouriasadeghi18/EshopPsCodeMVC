@@ -1,0 +1,33 @@
+﻿
+
+
+
+@if (User.Identity.IsAuthenticated)
+{
+
+
+    <li class="dropdown">
+        <a id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+            <i class="fas fa-user-circle"></i>
+            <label>@User.Identity.Name</label>
+            <i class="fas fa-caret-down"></i>
+        </a>
+    </li>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="">تغییر کلمه عبور</a></li>
+    </ul>
+    <li><a href="/Signout"><i class="fas fa-sign-out-alt"></i> <label>خروج از حساب</label> </a></li>
+
+
+}
+else
+{
+
+    <li><a href="/Register"><i class="fa fa-user-plus"></i> <label>عضویت</label> </a></li>
+    <li><a href="/Login"><i class="fa fa-user"></i> <label>ورود به سایت</label> </a></li>
+
+}
+
+
+
+

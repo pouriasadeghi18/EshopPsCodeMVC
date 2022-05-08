@@ -1,0 +1,57 @@
+﻿
+@model IEnumerable<DataLayer.Grouping>
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            گروه اصلی
+        </th>
+        <th>
+            زیر گروه اول
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr id="group_@item.GroupingID">
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupingName)
+
+
+
+            </td>
+            <td>
+                @if (item.Grouping1.Any())
+                {
+
+                    <ul>
+                        @foreach (var subgroup in item.Grouping1)
+                        {
+
+                            <li id="group_@subgroup.GroupingID">
+                                <a href="">
+                                    @subgroup.GroupingName
+
+                                    <a onclick="Edit(@subgroup.GroupingID)"><i class="fas fa-edit fa-xl text-warning"></i></a>
+                                    <a onclick="Delete(@subgroup.GroupingID)"><i class="fas fa-trash-alt fa-xl text-danger"></i> </a>
+                                </a>
+                            </li>
+
+
+                        }
+                    </ul>
+
+                }
+            </td>
+
+            <td>
+                <a onclick="Edit(@item.GroupingID)"><i class="fas fa-edit fa-xl text-warning"></i></a>
+                <a onclick="Delete(@item.GroupingID)"><i class="fas fa-trash-alt fa-xl text-danger"></i> </a>
+                <a onclick="Create(@item.GroupingID)"><i class="fas fa-plus-square fa-xl  text-primary"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>

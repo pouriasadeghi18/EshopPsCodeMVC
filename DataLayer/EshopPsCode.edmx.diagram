@@ -4,10 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8d2b8616ce7c4a47a78483af46c088f5" Name="Diagram1">
-        <EntityTypeShape EntityType="EshopPsCodeModel.Role" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EshopPsCodeModel.Users" Width="1.5" PointX="5.375" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="84f1d1923b7d4396bb52d815c5111172" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="EshopPsCodeModel.Grouping" Width="1.5" PointX="6.875" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopPsCodeModel.Product" Width="1.5" PointX="7.625" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopPsCodeModel.Product_Selected_Groups" Width="1.5" PointX="6.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopPsCodeModel.Product_Tags" Width="1.5" PointX="5.125" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopPsCodeModel.Role" Width="1.5" PointX="12.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EshopPsCodeModel.Users" Width="1.5" PointX="14.5" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="EshopPsCodeModel.FK_Grouping_Grouping" ManuallyRouted="false" />
+        <AssociationConnector Association="EshopPsCodeModel.FK_Product_Selected_Groups_Product1" ManuallyRouted="false" />
+        <AssociationConnector Association="EshopPsCodeModel.FK_Product_Selected_Groups_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="EshopPsCodeModel.FK_Product_Tags_Product" ManuallyRouted="false" />
         <AssociationConnector Association="EshopPsCodeModel.FK_Users_Role1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EshopPsCodeModel.Product_Gallery" Width="1.5" PointX="3.25" PointY="8.5" />
+        <AssociationConnector Association="EshopPsCodeModel.FK_Product_Gallery_Product" />
+        <EntityTypeShape EntityType="EshopPsCodeModel.Features" Width="1.5" PointX="8.75" PointY="8.5" />
+        <EntityTypeShape EntityType="EshopPsCodeModel.Product_Features" Width="1.5" PointX="8.375" PointY="4.875" />
+        <AssociationConnector Association="EshopPsCodeModel.FK_Product_Features_Features" />
+        <AssociationConnector Association="EshopPsCodeModel.FK_Product_Features_Product" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,0 +1,35 @@
+﻿@model DataLayer.Grouping
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+
+<h3 >آیا از حذف @Model.GroupingName مطمئن هستید؟</h3>
+<div class="mt-2">
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupingName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GroupingName)
+        </dd>
+
+   
+
+    </dl>
+
+    @using (Html.BeginForm())
+    
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-warning" /> 
+        
+        </div>
+    }
+</div>

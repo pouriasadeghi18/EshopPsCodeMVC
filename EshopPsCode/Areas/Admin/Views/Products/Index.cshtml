@@ -1,0 +1,90 @@
+﻿@model IEnumerable<DataLayer.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>محصولات</h2>
+<br />
+<p>
+    <a class="btn btn-primary" href="@Url.Action("Create","Products")">ایجاد محصول جدید</a>
+
+</p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            گروه های این محصول
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr id="product_@item.ProductID">
+            <td>
+                <img class="img-thumbnail" src="~/Images/ProductImages/thumb/@item.ImageName" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+               
+               @if (item.Product_Selected_Groups.Any()) {
+                <ol>
+                    @foreach (var group in item.Product_Selected_Groups)
+                    {
+                        <li>@group.Grouping.GroupingName</li>
+                    }
+                </ol>
+               }
+
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+
+            <td>
+                <a class="btn btn-outline-secondary btn-sm">ویژگی های محصول</a>
+                <a href="@Url.Action("ProductGallery","Products" , new {id = item.ProductID})" class="btn btn-outline-info btn-sm">گالری محصول</a>
+                <a href="@Url.Action("Edit" , "Products" , new {id = item.ProductID})" class="btn btn-warning btn-sm">ویرایش</a>
+                <a onclick="Delete(@item.ProductID)" class="btn  btn-danger btn-sm">حذف</a>
+
+            </td>
+        </tr>
+    }
+
+</table>
+@section scripts{
+
+    <script>
+        function Delete(id) {
+            if (confirm("آیا از حذف مطئمن هستید؟")) {
+                $.get("/Admin/Products/Delete/" + id, function () {
+                    $("#product_" + id).hide("slow");
+                });
+
+            }
+        }
+    </script>
+
+}

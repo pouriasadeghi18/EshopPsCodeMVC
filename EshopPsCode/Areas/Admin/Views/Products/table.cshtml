@@ -1,0 +1,26 @@
+﻿
+
+<table id="gallerytabale" class="table table-bordered mt-4">
+
+    @{
+
+        List<DataLayer.Product_Gallery> gallery = ViewBag.gallery;
+    }
+    <tr>
+
+
+        <th>عنوان</th>
+        <th>تصویر</th>
+        <th></th>
+
+    </tr>
+    
+        @foreach (var item in gallery)
+        {<tr id="photo_@item.GalleryId">
+    <td>@item.Title</td>
+    <td><img src="~/Images/ProductImages/thumb/@item.ImageName" /></td>
+    <td><a onclick="Deletephoto(@item.GalleryId)" class="btn btn-sm btn-warning"><i class="fas fa-trash-alt"></i></a></td>
+</tr>
+    }
+
+</table>

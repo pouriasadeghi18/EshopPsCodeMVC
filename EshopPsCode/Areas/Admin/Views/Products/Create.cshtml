@@ -1,0 +1,159 @@
+﻿@model DataLayer.Product
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ایجاد محصول جدید</h2>
+<hr />
+
+@if(ViewBag.groupcheked == true)
+            {
+                <div class="alert alert-danger">
+                    <p>لطفا دسته بندی این محصول را انتخاب کنید.</p>
+                </div>
+            }
+
+@using (Html.BeginForm("create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-horizontal">
+
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ShortDiscraption, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ShortDiscraption, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ShortDiscraption, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="control-label col-md-2">کلمات کلیدی</span>
+                    <div class="col-md-10">
+                        <input  type="text" class="form-control" name="tags" placeholder="کلمات کلیدی خود را با , جدا کنید"/>
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+                <div>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+
+            <div class="card  text-dark bg-light mb-3" style="max-width: 18rem; overflow:hidden;">
+                <div class="card-header">عکس محصول</div>
+                <div class="card-body">
+                    <img src="~/Images/ProductImages/NoPhoto.jpg" class="thumbnails-image" id="imgpreview" />
+                    <hr />
+                    <div class="form-group">
+
+
+                        <input type="file" name="productimage" id="productimg" />
+                        @Html.ValidationMessageFor(model => model.ImageName, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header">دسته بندی ها</div>
+                <div class="card-body">
+                    @{
+                        List<DataLayer.Grouping> groupings = ViewBag.groups;
+                        <ul>
+                            @foreach (var item in groupings.Where(g => g.Subgroup == null))
+                            {
+                                <li>
+                                    <input type="checkbox" name="groupcheck" value="@item.GroupingID" /> <span>@item.GroupingName</span>
+                                </li>
+                                if (item.Grouping1.Any())
+                                {
+                                    foreach (var subgroup in groupings.Where(g => g.Subgroup == item.GroupingID))
+                                    {
+                                        <li style="margin-right:20px;">
+                                            <input type="checkbox" name="groupcheck"  value="@subgroup.GroupingID"/> <span>@subgroup.GroupingName</span>
+                                        </li>
+                                    }
+                                }
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+}
+
+
+
+@section scripts{
+
+
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgpreview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#productimg").change(function () {
+            readURL(this);
+        });
+    </script>
+    <script src="~/Scripts/CkEditor/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#Text'))
+            .catch(error => {
+                console.error(error);
+            });
+
+    </script>
+}

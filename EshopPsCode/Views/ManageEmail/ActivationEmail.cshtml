@@ -1,0 +1,9 @@
+﻿@using System.Configuration
+@model DataLayer.Users
+<div style=" direction: rtl; text-align: center;  height: 100px; width: auto; ">
+
+    <h1>@Model.UserName عزیز !</h1>
+    <p>با تشکر از ثبت نام در سایت ما  ، جهت فعال سازی حساب کاربری لطفا رو لینک زیر کلیک کنید. </p>
+    <p><a href="@ConfigurationManager.AppSettings["Domain"]/account/ActivationEmail/@Model.ActiveCode">لینک فعال سازی</a></p>
+
+</div>

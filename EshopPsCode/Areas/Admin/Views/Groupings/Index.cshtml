@@ -1,0 +1,72 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<p>
+    <a class="btn btn-success" onclick="Create()">افزودن گروه جدید</a>
+</p>
+<div id="ListGroup">
+    @Html.Action("ListGroups", "Groupings")
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="mymodalbody">
+                ...
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--End Modal -->
+
+@section Scripts{
+
+    <script>
+        function Create(Subgroup) {
+            $.get("/Admin/Groupings/Create/" + Subgroup, function (result) {
+                $("#myModal").modal("toggle");
+                
+                $("#staticBackdropLabel").html("افزودن گروه جدید");
+                $("#mymodalbody").html(result);
+            });
+            $(document).ready(function () {
+
+
+            });
+
+        }
+        function success() {
+            $("#myModal").modal("toggle");
+        }
+
+        function Edit(id) {
+            $.get("/Admin/Groupings/Edit/" + id, function (result) {
+                $("#myModal").modal("toggle");
+                $("#staticBackdropLabel").html("ویرایش گروه");
+                $("#mymodalbody").html(result);
+            });
+
+
+        }
+
+        function Delete(id) {
+            if (confirm("آیا از حذف مطئمن هستید؟")) {
+                $.get("/Admin/Groupings/Delete/" + id, function () {
+                    $("#group_" + id).hide("slow");
+                });
+
+            }
+        }
+    </script>
+
+}
